@@ -2,7 +2,7 @@ const Schedule = require('../Models/Schedule/Schedule');
 
 exports.createSchedule = async (req, res) => {
   try {
-    const newSchedule = new Schedule(req.body);
+    const newSchedule = new Schedule({...req.body, userId: req.user.id});
     await newSchedule.save();
     res.status(201).json(newSchedule);
   } catch (error) {
@@ -12,7 +12,7 @@ exports.createSchedule = async (req, res) => {
 
 exports.getSchedules = async (req, res) => {
   try {
-    const schedules = await Schedule.find();
+    const schedules = await Schedule.find({ userId: req.user.id });
     res.json(schedules);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching schedules', error });

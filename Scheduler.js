@@ -3,10 +3,9 @@ const moment = require('moment');
 const Schedule = require('./Models/Schedule/Schedule');
 const sendDailyEmail = require('./Utils/sendMailyEmail');
 
-cron.schedule('31 18 * * *', async () => {
+cron.schedule('46 21 * * *', async () => {
   const today = moment().startOf('day').toISOString();
   const tomorrow = moment().add(1, 'days').startOf('day').toISOString();
-
   try {
     const schedules = await Schedule.find({
       'tasks.start': { $gte: today, $lt: tomorrow }
@@ -25,4 +24,6 @@ cron.schedule('31 18 * * *', async () => {
   } catch (error) {
     console.error('Error running daily task email cron job:', error);
   }
+},{
+  timezone: 'Asia/Kolkata'
 });

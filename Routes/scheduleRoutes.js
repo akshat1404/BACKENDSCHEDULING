@@ -7,11 +7,12 @@ const {
   updateSchedule,
   deleteSchedule,
 } = require('../controllers/scheduleController');
+const authenticate = require('../Middleware/authenticate');
 
-router.post('/', createSchedule);
-router.get('/', getSchedules);
-router.get('/:id', getScheduleById); 
-router.put('/:id', updateSchedule); 
-router.delete('/:id', deleteSchedule); 
+router.post('/',authenticate, createSchedule);
+router.get('/',authenticate, getSchedules);
+router.get('/:id',authenticate, getScheduleById); 
+router.put('/:id',authenticate, updateSchedule); 
+router.delete('/:id',authenticate, deleteSchedule); 
 
 module.exports = router;
