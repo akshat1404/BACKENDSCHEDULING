@@ -3,7 +3,7 @@ const moment = require('moment');
 const Schedule = require('./Models/Schedule/Schedule');
 const sendDailyEmail = require('./Utils/sendMailyEmail');
 
-cron.schedule('46 21 * * *', async () => {
+cron.schedule('00 00 * * *', async () => {
   const today = moment().startOf('day').toISOString();
   const tomorrow = moment().add(1, 'days').startOf('day').toISOString();
   try {

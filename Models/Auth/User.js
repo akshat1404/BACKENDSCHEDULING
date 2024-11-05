@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  followdSchedule: {
+    type: String,
+    default: null,
+    ref: 'Schedule'
+  }
 });
 
 userSchema.pre('save', async function (next) {
