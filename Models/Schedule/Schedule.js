@@ -16,6 +16,7 @@ const ScheduleSchema = new Schema({
     email: {type: String, required: true},
     type: { type: String, required: true },
     userId: { type: String, required: true }, 
+    followed: {type: Boolean, default: false}
 }, { timestamps: true });
 
 module.exports = mongoose.model('Schedule', ScheduleSchema);
