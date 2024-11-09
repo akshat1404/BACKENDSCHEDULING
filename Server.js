@@ -18,7 +18,7 @@ const port = process.env.PORT || 800;
 app.use(cors());
 app.use(express.json()); 
 
-mongoose.connect('mongodb+srv://Akshat_Tiwari_1404:Akshat_1404@scheduling.2wuji.mongodb.net/schedulesDB?retryWrites=true&w=majority',{connectTimeoutMS: 80000}).then(() => console.log('MongoDB connected')).catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGO_URI,{connectTimeoutMS: 80000}).then(() => console.log('MongoDB connected')).catch(err => console.error('MongoDB connection error:', err));
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Schedule App API!');
