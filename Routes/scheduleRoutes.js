@@ -7,7 +7,7 @@ const {
   getScheduleById,
   updateSchedule,
   deleteSchedule,
-} = require('../controllers/scheduleController');
+} = require('../Controllers/scheduleController');
 const authenticate = require('../Middleware/authenticate');
 
 router.post('/',authenticate, createSchedule);
