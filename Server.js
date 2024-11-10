@@ -18,7 +18,7 @@ const port = process.env.PORT || 800;
 app.use(cors());
 app.use(express.json()); 
 
-mongoose.connect('mongodb://Akshat_Tiwari_1404:Akshat_1404@scheduling-shard-00-00.2wuji.mongodb.net:27017,scheduling-shard-00-01.2wuji.mongodb.net:27017,scheduling-shard-00-02.2wuji.mongodb.net:27017/schedulesDB?ssl=true&replicaSet=atlas-r5r5ow-shard-0&authSource=admin&retryWrites=true&w=majority',{connectTimeoutMS: 80000}).then(() => console.log('MongoDB connected')).catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB connected')).catch(err => console.error('MongoDB connection error:', err));
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Schedule App API!');
@@ -32,6 +32,8 @@ app.use('/notifications', notificationsRoutes);
 app.use('/followed',followedRoutes);
 // app.use('/userTasks',UserTasks);
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
+
+module.exports = app;
