@@ -3,9 +3,10 @@ const moment = require('moment');
 const Schedule = require('./Models/Schedule/Schedule');
 const sendDailyEmail = require('./Utils/sendMailyEmail');
 
-cron.schedule('00 00 * * *', async () => {
+cron.schedule('00 7 * * *', async () => {
   const today = moment().startOf('day').toISOString();
   const tomorrow = moment().add(1, 'days').startOf('day').toISOString();
+  console.log('Scheduler Running');
   try {
     const schedules = await Schedule.find({
       'tasks.start': { $gte: today, $lt: tomorrow }
