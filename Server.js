@@ -32,8 +32,6 @@ app.use('/notifications', notificationsRoutes);
 app.use('/followed',followedRoutes);
 // app.use('/userTasks',UserTasks);
 
-// app.listen(port, () => {
-//   console.log(`Server running on port ${port}`);
-// });
-
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
