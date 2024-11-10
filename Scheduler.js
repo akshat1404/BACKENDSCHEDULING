@@ -1,13 +1,11 @@
 const cron = require('node-cron');
-const moment = require('moment-timezone'); // moment-timezone for explicit timezone handling
+const moment = require('moment-timezone');
 const Schedule = require('./Models/Schedule/Schedule');
 const sendDailyEmail = require('./Utils/sendMailyEmail');
 
-// Schedule the cron job for 12:30 AM IST every day
-cron.schedule('30 0 * * *', async () => {
+cron.schedule('00 08 * * *', async () => {
   console.log('Scheduler Running at 12:30 AM IST');
 
-  // Set today and tomorrow according to Asia/Kolkata timezone
   const today = moment().tz('Asia/Kolkata').startOf('day').toISOString();
   const tomorrow = moment().tz('Asia/Kolkata').add(1, 'days').startOf('day').toISOString();
 
