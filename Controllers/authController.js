@@ -60,3 +60,39 @@ exports.login = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+exports.googleLogin = async (req, res) => {
+  const { token } = req.body; // token sent from frontend
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const { sub, name, email } = payload;
+
+    let user = await User.findOne({ email });
+    if (!user) {
+
+      user = new User({
+        name,
+        email,
+        googleId: sub,
+      });
+      await user.save();
+    }
+
+    const jwtPayload = { user: { id: user.id } };
+    jwt.sign(jwtPayload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
+  } catch (error) {
+    console.error('Error verifying Google token', error);
+    res.status(500).send('Server error');
+  }
+};
