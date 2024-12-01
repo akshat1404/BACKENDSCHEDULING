@@ -9,7 +9,7 @@ const notificationsRoutes = require('./Routes/notificationsRoutes.js');
 const followedRoutes = require('./Routes/followedRoutes.js');
 const configRoutes = require('./Routes/configRoutes.js');
 const UserTasks = require('./Routes/userTasks.js');
-require('./Scheduler.js');
+const Scheduler = require('./Scheduler');
 
 dotenv.config();
 const app = express();
@@ -31,6 +31,7 @@ app.use('/tasks', taskRoutes);
 app.use('/notifications', notificationsRoutes);
 app.use('/followed',followedRoutes);
 app.use('/userTasks',UserTasks);
+app.use('/trigger-email',Scheduler);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
