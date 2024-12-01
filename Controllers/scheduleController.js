@@ -20,7 +20,7 @@ exports.updateFollowedSchedule = async(req,res) =>{
       {userId,followed: true},
       {followed:false}
     )
-    console.log(id);
+
     const updatedSchedule= await Schedule.findOneAndUpdate(
       {id},
       {followed: true},
@@ -77,8 +77,6 @@ exports.updateSchedule = async (req, res) => {
     res.status(400).json({ message: 'Failed to update schedule', error });
   }
 };
-
-
 
 exports.deleteSchedule = async (req, res) => {
   try {

@@ -65,13 +65,15 @@ const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 exports.googleLogin = async (req, res) => {
-  const { token } = req.body; // token sent from frontend
+  const { token } = req.body; 
 
   try {
+
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
+
     const payload = ticket.getPayload();
     const { sub, name, email } = payload;
 
@@ -84,7 +86,7 @@ exports.googleLogin = async (req, res) => {
         googleId: sub,
       });
       await user.save();
-    }
+    } 
 
     const jwtPayload = { user: { id: user.id } };
     jwt.sign(jwtPayload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {

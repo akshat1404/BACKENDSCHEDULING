@@ -3,7 +3,8 @@ const router = express.Router();
 const {
   getTodayTasks
 } = require('../Controllers/taskController');
+const authenticate = require('../Middleware/authenticate');
 
-router.get('/:id', getTodayTasks); 
+router.get('/:id',authenticate, getTodayTasks); 
 
 module.exports = router;

@@ -8,7 +8,7 @@ const authRoutes = require('./Routes/auth')
 const notificationsRoutes = require('./Routes/notificationsRoutes.js');
 const followedRoutes = require('./Routes/followedRoutes.js');
 const configRoutes = require('./Routes/configRoutes.js');
-// const UserTasks = require('./Routes/userTasks.js');
+const UserTasks = require('./Routes/userTasks.js');
 require('./Scheduler.js');
 
 dotenv.config();
@@ -30,7 +30,7 @@ app.use('/api/schedules', scheduleRoutes);
 app.use('/tasks', taskRoutes);
 app.use('/notifications', notificationsRoutes);
 app.use('/followed',followedRoutes);
-// app.use('/userTasks',UserTasks);
+app.use('/userTasks',UserTasks);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

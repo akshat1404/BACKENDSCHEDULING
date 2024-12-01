@@ -13,14 +13,21 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: function() {
+      return !this.googleId;
+    },
+  },
+  googleId: {
+    type: String, 
+    unique: true,
   },
   followdSchedule: {
     type: String,
     default: null,
-    ref: 'Schedule'
-  }
+    ref: 'Schedule',
+  },
 });
+
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();

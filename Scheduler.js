@@ -4,7 +4,7 @@ const Schedule = require('./Models/Schedule/Schedule');
 const User = require('./Models/Auth/User'); 
 const sendDailyEmail = require('./Utils/sendMailyEmail');
 
-cron.schedule('00 08 * * *', async () => {
+cron.schedule('00 00 * * *', async () => {
   console.log('Scheduler Running at 08:00 AM IST');
 
   const today = moment().tz('Asia/Kolkata').startOf('day').toISOString();
@@ -24,6 +24,8 @@ cron.schedule('00 08 * * *', async () => {
       const userTasks = [];
       
       schedules.forEach(schedule => {
+
+        if (!user._id.equals(schedule.userId)) return;
         const todayTasks = schedule.tasks.filter(task => {
           const taskDate = moment(task.start).tz('Asia/Kolkata').startOf('day').toISOString();
           return taskDate === today;
