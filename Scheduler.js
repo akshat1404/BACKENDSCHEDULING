@@ -16,12 +16,18 @@ router.get('/', async (req, res) => {
 
     const users = await User.find();
 
-    users.forEach(user => {
+    const emailTasks = [];
+
+    users.forEach((user) => {
       const userTasks = [];
-      schedules.forEach(schedule => {
-        if (!user._id.equals(schedule.userId)) return;
-        const todayTasks = schedule.tasks.filter(task => {
-          const taskDate = moment(task.start).tz('Asia/Kolkata').startOf('day').toISOString();
+      schedules.forEach((schedule) => {
+        if (!user._id.equals(schedule.userId)) return; 
+
+        const todayTasks = schedule.tasks.filter((task) => {
+          const taskDate = moment(task.start)
+            .tz('Asia/Kolkata')
+            .startOf('day')
+            .toISOString();
           return taskDate === today;
         });
 
@@ -31,15 +37,18 @@ router.get('/', async (req, res) => {
       });
 
       if (userTasks.length > 0) {
+        emailTasks.push({ email: user.email, tasks: userTasks.length });
         sendDailyEmail(user.email, userTasks);
-        console.log(`Email sent to ${user.email} for today's tasks.`);
+        console.log(`Email sent to ${user.email} for ${userTasks.length} tasks.`);
       }
     });
 
-    res.status(200).send('Emails sent successfully!');
+
+    res.status(200).send('Email notifications processed successfully.');
   } catch (error) {
     console.error('Error running daily email cron job:', error);
-    res.status(500).send('Error running cron job');
+
+    res.status(500).send('Error processing email notifications.');
   }
 });
 
