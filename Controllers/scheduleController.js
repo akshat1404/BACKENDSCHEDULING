@@ -80,7 +80,7 @@ exports.updateSchedule = async (req, res) => {
 
 exports.deleteSchedule = async (req, res) => {
   try {
-    const schedule = await Schedule.findByIdAndDelete(req.params.id);
+    const schedule = await Schedule.findOneAndDelete({id:req.params.id});
     if (!schedule) return res.status(404).json({ message: 'Schedule not found' });
     res.json({ message: 'Schedule deleted successfully' });
   } catch (error) {
