@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     type: String, 
     unique: true,
   },
-  followdSchedule: {
+  followedSchedule: {
     type: String,
     default: null,
     ref: 'Schedule',
