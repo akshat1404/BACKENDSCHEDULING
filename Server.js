@@ -31,6 +31,9 @@ app.use('/tasks', taskRoutes);
 app.use('/notifications', notificationsRoutes);
 app.use('/followed',followedRoutes);
 app.use('/userTasks',UserTasks);
+app.get('/trigger-email-dummy', (req, res) => {
+  res.status(200).send('Server is alive');
+});
 app.use('/trigger-email',Scheduler);
 
 app.listen(port, () => {
